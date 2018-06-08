@@ -1,0 +1,23 @@
+{
+    "name": "beforeafter/schema_rich_snippets",
+    "description": "Wordpress plugin whick adds schema snippets to choosen page",
+    "type": "wpplugin",
+    "license": "GPL2",
+    "authors": [
+        {
+            "name": "Mateusz",
+            "email": "mateusz.grzybowski@b4after.pl"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "BeforeAfter\\BASRS\\": "classes/",
+            "BeforeAfter\\BASRS\\\\": "inc/",
+            "BeforeAfter\\BASRS\\Helpers\\": "helpers/"
+        },
+        "files": [
+            "inc/Functions.php"
+        ]
+    }
+}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Before / After: Schema.org Rich snippets
+ * Plugin Name: Before / After: Schema Rich snippets
  * Author: Before / After
  * Author URI: http://www.b4after.pl/
  * Description: System do dodawania znaczników schema
@@ -50,8 +50,8 @@ class BA_SchemaSnippets {
 
         $this->load_textdomain();
 
-//        $this->controller();
-//        add_action('plugins_loaded', array(new BeforeAfter\BASCS\Install(), 'init',));
+        $controller = \BeforeAfter\BASRS\Controller::instance();
+        
     }
 
     /**

@@ -52,6 +52,7 @@ class BA_SchemaSnippets {
 
         $controller = \BeforeAfter\BASRS\Controller::instance();
         
+       
     }
 
     /**

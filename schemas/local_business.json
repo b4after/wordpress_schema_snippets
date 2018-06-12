@@ -1,69 +1,87 @@
 {
     "name": "LocalBusiness",
-    "schema": {
-        "@context": "http:\/\/schema.org",
-        "@type": "LocalBusiness",
-        "name": "",
-        "image": "",
-        "@id": "",
-        "url": "",
-        "telephone": "",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "",
-            "addressLocality": "",
-            "postalCode": "",
-            "addressCountry": ""
-        },
-        "openingHoursSpecification": [{
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Monday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Tuesday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Wednesday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Thursday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Friday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Saturday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }, {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": {
-                    "Sunday": ""
-                },
-                "opens": "",
-                "closes": ""
-            }]
-    }
+    "schema": [{
+            "name": "@context",
+            "default": "http:\/\/schema.org",
+            "placeholder": "http:\/\/schema.org",
+            "blocked": true,
+            "type": "text"
+        }, {
+            "name": "@type",
+            "options": ["RadioStation", "RealEstateAgent"],
+            "default": "LocalBusiness",
+            "placeholder": "Schema Type",
+            "type": "select"
+        }, {
+            "name": "name",
+            "default": "",
+            "placeholder": "Business name",
+            "type": "text"
+        }, {
+            "name": "image",
+            "default": "",
+            "placeholder": "Image URL",
+            "type": "text"
+        }, {
+            "name": "@id",
+            "default": "",
+            "placeholder": "@id URL",
+            "type": "text"
+        }, {
+            "name": "url",
+            "default": "",
+            "placeholder": "Website url",
+            "type": "text"
+        }, {
+            "name": "telephone",
+            "default": "",
+            "placeholder": "Phone",
+            "type": "text"
+        }, {
+            "name": "faxNumber",
+            "default": "",
+            "placeholder": "FAX",
+            "type": "text"
+        }, {
+            "name": "email",
+            "default": "",
+            "placeholder": "Mail address",
+            "type": "text"
+        }, {
+            "type": "array",
+            "name": "address",
+            "placeholder": "Address",
+            "options": [{
+                    "name": "@type",
+                    "default": "PostalAddress",
+                    "placeholder": "PostalAddress",
+                    "type": "text",
+                    "blocked": true
+                }, {
+                    "name": "streetAddress",
+                    "default": "",
+                    "placeholder": "Street",
+                    "type": "text"
+                }, {
+                    "name": "addressLocality",
+                    "default": "",
+                    "placeholder": "City",
+                    "type": "text"
+                }, {
+                    "name": "postalCode",
+                    "default": "",
+                    "placeholder": "Zip Code",
+                    "type": "text"
+                }, {
+                    "name": "addressCountry",
+                    "default": "PL",
+                    "placeholder": "Code for Country",
+                    "type": "text"
+                }, {
+                    "name": "addressRegion",
+                    "default": "",
+                    "placeholder": "Code for Region",
+                    "type": "text"
+                }]
+        }]
 }

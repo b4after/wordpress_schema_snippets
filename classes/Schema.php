@@ -40,7 +40,6 @@ class Schema {
         $this->getSchemasList();
     }
 
-
     /**
      * Scans dir with jsons and convert them to reusable php files
      */
@@ -50,11 +49,23 @@ class Schema {
 
         $temp = [];
         foreach ($directory as $key => $file) {
-            $file = file_get_contents($this->schemaDir . '/' . $file);
+            /**
+             * Skip directories
+             */
+            if (!is_dir($this->schemaDir . '/' . $file)) {
+                /**
+                 * Get content from found json
+                 */
+                $file = file_get_contents($this->schemaDir . '/' . $file);
 
-            if (!empty(json_decode($file, true))) {
-                $temp[] = json_decode($file);
-                $this->aviableSchemas[] = json_decode($file, true);
+
+                /**
+                 * Add this content to param
+                 */
+                if (!empty(json_decode($file, true))) {
+                    $temp[] = json_decode($file);
+                    $this->aviableSchemas[] = json_decode($file, true);
+                }
             }
         }
     }

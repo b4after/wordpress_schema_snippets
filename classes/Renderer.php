@@ -26,41 +26,77 @@ class Renderer {
     private $scopes;
 
     public function __construct() {
-        add_action('wp_footer', [$this, 'renderInFooter']);
+        add_action('wp_footer', [$this, 'render']);
 
-        $this->init();
+//        $this->init();
+    }
+    /**
+     * 
+     */
+    public function render() {
+
+        $scopes = $this->getScopes();
+//        debug($this->schemaID);
+//        debug($this->schema);
+//        debug($this->scopes);
+//        debug($scopes);
+        if (!empty($scopes)) {
+
+            foreach ($scopes as $key => $scope) {
+                /**
+                 * Case for taxonomies and categories
+                 */
+//                debug($scope);
+                if ($scope === 'tax') {
+
+                    foreach ($scopes['ids']as $tax) {
+                        /*
+                         * Is taxonomy custom with name $tax
+                         */
+                        if (is_tax($tax)) {
+                            echo $this->getSchema();
+                        }
+                        /**
+                         * Is Wordpress custom category
+                         */
+                        elseif (is_category()) {
+                            echo $this->getSchema();
+                            break;
+                        }
+                    }
+                }
+                if ($scope === 'post') {
+
+                    foreach ($scopes['ids'] as $post_ID) {
+                        /**
+                         * Is single post - blog post
+                         */
+                        if (is_single($post_ID)) {
+                            echo $this->getSchema();
+                        }
+                        /**
+                         * Is single page
+                         */
+                        elseif (is_page($post_ID)) {
+                            echo $this->getSchema();
+                        }
+                    }
+                }
+                if ($scope === 'cpt') {
+                    foreach ($scopes['ids'] as $cpt) {
+                        if (is_singular($cpt)) {
+                            echo $this->getSchema();
+                        }
+                    }
+                }
+            }
+        }
+
+       
     }
 
-    public function init() {
-
-
-//        debug($this->getSchemaID());
-//        $scopes = $this->getScopes();
-//
-//        foreach ($scopes as $scope) {
-//            $schema = $this->getSchema($scope['post_id']);
-//            $types = unserialize(get_post_meta($scope['post_id'], 'ba_srs_choosen_scope', true));
-//
-//
-//            foreach ($types as $key => $value) {
-//
-//                $data = explode('|', $value);
-////                debug($data[1]);
-//
-//                $this->type = $data[0];
-//                if ($data[0] === 'post') {
-//                    $postID = $data[1];
-//                    $this->IDs[] = $postID;
-//                }
-//            }
-//        }
-    }
-
-    public function renderInFooter() {
-
-        print_r($this->getScopes());
-        echo $this->getSchema();
-        echo $this->getSchemaID();
+    public function checkScope() {
+        
     }
 
     /**
@@ -86,8 +122,12 @@ class Renderer {
      * @return type
      */
     public function getSchema() {
-
-        return $this->schema;
+        
+        $html = '<!--/ B4after Schema Plugin /-->';
+        $html .= '<script type="application/ld+json">' . $this->schema . '</script>';
+        $html .= '<!--/ B4after Schema Plugin /-->';
+       
+        return $html;
     }
 
     /**
@@ -100,7 +140,21 @@ class Renderer {
     }
 
     function getScopes() {
-        return $this->scopes;
+        $scopes = [];
+        /**
+         * Sort IDs
+         */
+        if (!empty($this->scopes && $this->scopes)) {
+            foreach ($this->scopes as $key => $scope) {
+                $scopes['scope'] = explode('|', $scope)[0];
+                $scopes['ids'][] = explode('|', $scope)[1];
+            }
+        }
+
+
+
+
+        return $scopes;
     }
 
     function setScopes($scopes) {

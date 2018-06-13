@@ -49,7 +49,7 @@ class Controller {
 
 
         $sql = $wpdb->prepare($query, array(
-            'ba_srs_choosen_scope'
+            'schema_json'
         ));
 
         $row = $wpdb->get_results($sql, ARRAY_A);
@@ -57,7 +57,7 @@ class Controller {
         foreach ($row as $renderer) {
 
             $schema = get_post_meta($renderer['post_id'], 'schema_json', true);
-            $scopes = unserialize(get_post_meta($renderer['post_id'], 'ba_srs_choosen_scope', true));
+            $scopes = unserialize(get_post_meta($renderer['post_id'], 'ba_choosen_scopes', true));
             $Renderer = new Renderer();
             $Renderer->setSchemaID($renderer['post_id']);
             $Renderer->setSchema($schema);

@@ -116,9 +116,10 @@ class Metabox {
         $h = '';
 
         $screen = new Scope();
-
         $Inputs = $screen->getScope($this->choosenScope);
-        $selectedInputs = unserialize(get_post_meta($post->ID, $this->metaPrefix . 'choosen_scope', true));
+        $selectedInputs = unserialize(get_post_meta($post->ID, 'ba_choosen_scopes', true));
+
+        debug($selectedInputs);
 
         if (!empty($Inputs)) {
 
@@ -126,7 +127,7 @@ class Metabox {
 
                 $h .= '<label>' . $value['name'];
 
-                $h .= '<input type="checkbox" name="' . $this->metaPrefix . 'choosen_scope[]" value="' . $value['ID'] . '" ' . $this->is_checked($selectedInputs, trim($value['ID'])) . '>';
+                $h .= '<input type="checkbox" name="ba_choosen_scopes[]" value="' . $value['ID'] . '" ' . $this->is_checked($selectedInputs, $value['ID']) . ' >';
 
                 $h .= '</label>';
             }
@@ -346,6 +347,7 @@ class Metabox {
 
 
         update_post_meta($post_ID, 'ba_choosen_scope', $this->get_param('ba_choosen_scope'));
+        update_post_meta($post_ID, 'ba_choosen_scopes', serialize($_POST['ba_choosen_scopes']));
         update_post_meta($post_ID, 'ba_choosen_schema', $this->get_param('ba_choosen_schema'));
         update_post_meta($post_ID, 'schema_json', json_encode($json));
     }

@@ -140,10 +140,7 @@ class Metabox {
 
 //        $Renderer = new \BeforeAfter\BASRS\Renderer();
 
-        $Renderer = Renderer::instance();
-//        $Renderer->setSchemaID($post->ID);
 
-        
 
         return $h;
     }

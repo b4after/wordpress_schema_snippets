@@ -29,6 +29,7 @@ class Controller {
      */
     public function __construct() {
         $this->init_instalation();
+        $this->runRenderers();
     }
 
     /**
@@ -38,11 +39,30 @@ class Controller {
 
         $Instalator = new Install();
         add_action('plugins_loaded', array($Instalator, 'init'));
-        
-        
-        
-        
-        
+    }
+
+    private function runRenderers() {
+
+        global $wpdb;
+
+        $query = 'SELECT * FROM ' . $wpdb->postmeta . ' WHERE `meta_key` = "%s"';
+
+
+        $sql = $wpdb->prepare($query, array(
+            'ba_srs_choosen_scope'
+        ));
+
+        $row = $wpdb->get_results($sql, ARRAY_A);
+
+        foreach ($row as $renderer) {
+
+            $schema = get_post_meta($renderer['post_id'], 'schema_json', true);
+            $scopes = unserialize(get_post_meta($renderer['post_id'], 'ba_srs_choosen_scope', true));
+            $Renderer = new Renderer();
+            $Renderer->setSchemaID($renderer['post_id']);
+            $Renderer->setSchema($schema);
+            $Renderer->setScopes($scopes);
+        }
     }
 
 }

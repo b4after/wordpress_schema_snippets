@@ -7,27 +7,23 @@ namespace BeforeAfter\BASRS;
  */
 class Renderer {
 
+    /**
+     *  Holds up post->ID for each schema cpt
+     * @var type 
+     */
     private $schemaID;
 
     /**
-     *  Singleton 
+     * Holds up json with schema
      * @var type 
      */
-    protected static $_instance = null;
+    private $schema;
 
     /**
-     * Main Instance.
-     *
-     * Ensures only one instance of BASOS is loaded or can be loaded.
-     *
+     * Holds up scopes for each schema
+     * @var type 
      */
-    public static function instance() {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
+    private $scopes;
 
     public function __construct() {
         add_action('wp_footer', [$this, 'renderInFooter']);
@@ -35,27 +31,10 @@ class Renderer {
         $this->init();
     }
 
-    private function getScopes() {
-//        global $wpdb;
-//
-//        $query = 'SELECT * FROM ' . $wpdb->postmeta . ' WHERE `meta_key` = "%s"';
-//
-//
-//        $sql = $wpdb->prepare($query, array(
-//            'ba_srs_choosen_scope'
-//        ));
-//
-//        $row = $wpdb->get_results($sql, ARRAY_A);
-//
-//
-//
-//        return $row;
-    }
-
     public function init() {
 
-        debug($this->getSchemaID());
 
+//        debug($this->getSchemaID());
 //        $scopes = $this->getScopes();
 //
 //        foreach ($scopes as $scope) {
@@ -79,18 +58,9 @@ class Renderer {
 
     public function renderInFooter() {
 
-//        if ($this->type === 'post') {
-//            if (in_array(get_the_ID(), $this->IDs)) {
-//                debug($this->IDs);
-//            }
-//        }
-
-        echo 'test';
-    }
-
-    private function getType($scope) {
-
-//        $types = debug($types);
+        print_r($this->getScopes());
+        echo $this->getSchema();
+        echo $this->getSchemaID();
     }
 
     /**
@@ -98,18 +68,43 @@ class Renderer {
      * @param type $schemaID
      * @return type
      */
-    private function getSchemaID() {
-//        if (!$schemaID) {
-//            return;
-//        }
-//        $schema = get_post_meta($schemaID, 'schema_json', true);
-//
-//
+    public function getSchemaID() {
+
         return $this->schemaID;
     }
 
+    /**
+     * 
+     * @param type $schemaID
+     */
     public function setSchemaID($schemaID) {
         $this->schemaID = $schemaID;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getSchema() {
+
+        return $this->schema;
+    }
+
+    /**
+     * 
+     * @param type $schema
+     */
+    public function setSchema($schema) {
+
+        $this->schema = $schema;
+    }
+
+    function getScopes() {
+        return $this->scopes;
+    }
+
+    function setScopes($scopes) {
+        $this->scopes = $scopes;
     }
 
 }

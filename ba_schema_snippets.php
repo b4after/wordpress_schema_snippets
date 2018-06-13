@@ -11,9 +11,7 @@
  * Text Domain: BASRS
  * Domain Path: /languages
  */
-
 require_once( 'vendor/autoload.php' );
-
 
 class BA_SchemaSnippets {
 
@@ -45,14 +43,15 @@ class BA_SchemaSnippets {
     public function __construct() {
 
         do_action('init_BA_schema');
-        
+
         $this->define_constants();
 
         $this->load_textdomain();
 
         $controller = \BeforeAfter\BASRS\Controller::instance();
+
+        $Renderer = new \BeforeAfter\BASRS\Renderer();
         
-       
     }
 
     /**
@@ -80,6 +79,7 @@ class BA_SchemaSnippets {
          * BASRS - BeforeAfterSchemaRichSnippets
          */
         load_plugin_textdomain('BASRS', false, basename(dirname(__FILE__)) . '/languages/');
+       
     }
 
 }

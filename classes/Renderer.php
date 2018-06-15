@@ -26,20 +26,31 @@ class Renderer {
     private $scopes;
 
     public function __construct() {
-        add_action('wp_footer', [$this, 'render']);
+        add_action('wp_footer', [$this, 'showInFooter']);
 
 //        $this->init();
     }
-    /**
-     * 
-     */
-    public function render() {
 
+    /**
+     * Generate Json based on schema Type
+     */
+    public function generateJson() {
+        global $post;
+        $Generator = new SchemaGenerator($post, $this->getSchemaType());
+
+        $newJson = $Generator->generate();
+
+
+
+
+        $this->setSchema($newJson);
+    }
+
+    /**
+     * Render json based on typed params
+     */
+    public function renderJson() {
         $scopes = $this->getScopes();
-//        debug($this->schemaID);
-//        debug($this->schema);
-//        debug($this->scopes);
-//        debug($scopes);
         if (!empty($scopes)) {
 
             foreach ($scopes as $key => $scope) {
@@ -91,12 +102,34 @@ class Renderer {
                 }
             }
         }
-
-       
     }
 
-    public function checkScope() {
-        
+    /**
+     * 
+     */
+    public function showInFooter() {
+        /**
+         * Cheecks schema type
+         */
+        $type = $this->checkSchemaType();
+        if ($type === 'auto-generated') {
+            $this->generateJson();
+            $this->renderJson();
+        }
+        else {
+            $this->renderJson();
+        }
+    }
+
+    /**
+     * Check schema type
+     * Auto-generated or pasting json
+     */
+    private function checkSchemaType() {
+
+        $schemaType = get_post_meta($this->schemaID, 'ba_srs_@context', true);
+
+        return strtolower($schemaType);
     }
 
     /**
@@ -122,11 +155,11 @@ class Renderer {
      * @return type
      */
     public function getSchema() {
-        
+
         $html = '<!--/ B4after Schema Plugin /-->';
         $html .= '<script type="application/ld+json">' . $this->schema . '</script>';
         $html .= '<!--/ B4after Schema Plugin /-->';
-       
+//        debug($this->schema);
         return $html;
     }
 
@@ -151,14 +184,20 @@ class Renderer {
             }
         }
 
-
-
-
         return $scopes;
     }
 
     function setScopes($scopes) {
         $this->scopes = $scopes;
+    }
+
+    function getSchemaType() {
+
+        $type = get_post_meta($this->schemaID, 'ba_choosen_schema', true);
+
+
+
+        return $type;
     }
 
 }

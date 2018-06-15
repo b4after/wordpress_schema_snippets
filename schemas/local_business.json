@@ -8,7 +8,7 @@
             "type": "text"
         }, {
             "name": "@type",
-            "options": ["RadioStation", "RealEstateAgent"],
+            "options": ["LocalBusiness", "AnimalShelter", "AutomotiveBusiness", "ChildCare", "Dentist", "DryCleaningOrLaundry", "EmergencyService", "EmploymentAgency", "EntertainmentBusiness", "FinancialService", "FoodEstablishment", "GovernmentOffice", "HealthAndBeautyBusiness", "HomeAndConstructionBusiness", "InternetCafe", "LegalService", "Library", "LodgingBusiness", "ProfessionalService", "RadioStation", "RealEstateAgent", "RecyclingCenter", "SelfStorage", "ShoppingCenter", "SportsActivityLocation", "Store", "TelevisionStation", "TouristInformationCenter", "TravelAgency"],
             "default": "LocalBusiness",
             "placeholder": "Schema Type",
             "type": "select"
@@ -82,6 +82,27 @@
                     "default": "",
                     "placeholder": "Code for Region",
                     "type": "text"
+                }]
+        }, {
+            "type": "array",
+            "name": "openingHoursSpecification",
+            "placeholder": "Open hours",
+            "options": [{
+                    "name": "dayOfWeek",
+                    "default": "",
+                    "placeholder": "ex. Monday",
+                    "type": "array",
+                    "options": [{
+                            "name": "opens",
+                            "default": "",
+                            "placeholder": "Open hour",
+                            "type": "text"
+                        }, {
+                            "name": "closes",
+                            "default": "",
+                            "placeholder": "Closes hour",
+                            "type": "text"
+                        }]
                 }]
         }]
 }

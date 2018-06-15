@@ -119,7 +119,7 @@ class Metabox {
         $Inputs = $screen->getScope($this->choosenScope);
         $selectedInputs = unserialize(get_post_meta($post->ID, 'ba_choosen_scopes', true));
 
-        debug($selectedInputs);
+//        debug($selectedInputs);
 
         if (!empty($Inputs)) {
 
@@ -175,7 +175,7 @@ class Metabox {
         }
 //
         $this->schema = $Schema->getSchema($choosenSchema);
-//
+//        debug($this->schema);
 //
         $h .= '</div>';
         $h .= '<hr>';

@@ -94,18 +94,18 @@ class Schema {
 
         if (!empty($schemas)) {
             foreach ($schemas as $schema) {
-
+//                debug($schemas);
                 /**
                  * Checks each schema if has assigned name as searched value
                  */
-                if (strtolower($schema['name']) == strtolower($searchedSchema)) {
+                if (strtolower($schema['name']) === strtolower($searchedSchema)) {
                     return $schema;
                 }
-                else {
-                    return [
-                        'error' => __('Could not find searched config file')
-                    ];
-                }
+//                else {
+//                    return [
+//                        'error' => __('Could not find searched config file')
+//                    ];
+//                }
             }
         }
         else {

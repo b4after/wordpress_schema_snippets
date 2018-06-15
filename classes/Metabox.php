@@ -154,7 +154,7 @@ class Metabox {
         $h = '';
         $Schema = new Schema();
         $schemas = $Schema->getSchemas();
-
+       
         /**
          * Gets value by $post->ID and meta_key
          */

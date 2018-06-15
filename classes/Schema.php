@@ -46,26 +46,26 @@ class Schema {
     public function getSchemasList() {
 
         $directory = array_slice(scandir($this->schemaDir), 2);
-
+       
         $temp = [];
         foreach ($directory as $key => $file) {
             /**
              * Skip directories
              */
-            if (!is_dir($this->schemaDir . '/' . $file)) {
+            if (!is_dir($this->schemaDir . DIRECTORY_SEPARATOR . $file)) {
                 /**
                  * Get content from found json
                  */
-                $file = file_get_contents($this->schemaDir . '/' . $file);
+                $file = file_get_contents($this->schemaDir . DIRECTORY_SEPARATOR . $file);
 
 
                 /**
                  * Add this content to param
                  */
-                if (!empty(json_decode($file, true))) {
+//                if (!empty(json_decode($file, true))) {
                     $temp[] = json_decode($file);
                     $this->aviableSchemas[] = json_decode($file, true);
-                }
+//                }
             }
         }
     }

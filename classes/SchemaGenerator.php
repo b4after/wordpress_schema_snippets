@@ -45,7 +45,6 @@ class SchemaGenerator {
      * @return string
      */
     private function generate_article_schema() {
-
         $article = array(
             '@context' => 'http://schema.org',
             '@type' => 'NewsArticle',
@@ -80,7 +79,7 @@ class SchemaGenerator {
             $article['publisher']['logo']['@type'] = 'ImageObject';
             $article['publisher']['logo']['url'] = wp_get_attachment_image_src(get_theme_mod('custom_logo'), 'full')[0];
         }
-
+        wp_reset_postdata();
         return $article;
     }
 
@@ -90,7 +89,6 @@ class SchemaGenerator {
             '@context' => 'http://schema.org',
             '@type' => 'WebSite',
             'url' => get_bloginfo('url'),
-           
         ];
 
 

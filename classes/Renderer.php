@@ -27,7 +27,6 @@ class Renderer {
 
     public function __construct() {
         add_action('wp_footer', [$this, 'showInFooter']);
-
 //        $this->init();
     }
 
@@ -35,6 +34,7 @@ class Renderer {
      * Generate Json based on schema Type
      */
     public function generateJson() {
+        wp_reset_postdata();
         global $post;
         $Generator = new SchemaGenerator($post, $this->getSchemaType());
 
@@ -119,6 +119,8 @@ class Renderer {
         else {
             $this->renderJson();
         }
+
+
     }
 
     /**
@@ -177,7 +179,7 @@ class Renderer {
         /**
          * Sort IDs
          */
-        if (!empty($this->scopes && $this->scopes)) {
+        if (!empty($this->scopes) && $this->scopes) {
             foreach ($this->scopes as $key => $scope) {
                 $scopes['scope'] = explode('|', $scope)[0];
                 $scopes['ids'][] = explode('|', $scope)[1];

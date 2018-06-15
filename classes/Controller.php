@@ -62,6 +62,8 @@ class Controller {
             $Renderer->setSchemaID($renderer['post_id']);
             $Renderer->setSchema($schema);
             $Renderer->setScopes($scopes);
+
+            wp_reset_postdata();
         }
     }
 
